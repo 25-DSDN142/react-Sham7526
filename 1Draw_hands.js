@@ -18,22 +18,38 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-    //  let pinkyFingerTipX = hand.pinky_finger_tip.x;
-    //  let pinkyFingerTipY = hand.pinky_finger_tip.y;
+    let pinkyFingerTipX = hand.pinky_finger_tip.x;
+    let pinkyFingerTipY = hand.pinky_finger_tip.y;
+
+    let thumbTipX = hand.thumb_tip.x;
+    let thumbTipY = hand.thumb_tip.y;
+
+    let ringFingerTipX = hand.ring_finger_tip.x;
+    let ringFingerTipY = hand.ring_finger_tip.y;
+
+    let middleFingerTipX = hand.middle_finger_tip.x;
+    let middleFingerTipY = hand.middle_finger_tip.y;
+
+    // Wrist info
+    let wristX = hand.wrist.x;
+    let wristY = hand.wrist.y;
+    let wristZ = hand.wrist.z3D;
 
     /*
     Start drawing on the hands here
     */
 
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+    // fill(225, 225, 0);
+    // ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+    // ellipse(pinkyFingerTipX, pinkyFingerTipY, 30, 30);
+    // ellipse(thumbTipX, thumbTipY, 30, 30);
+    // ellipse(ringFingerTipX, ringFingerTipY, 30, 30);
+    // ellipse(middleFingerTipX, middleFingerTipY, 30, 30);
+    
+    // fingerPuppet(indexFingerTipX, indexFingerTipY);
 
-    // drawPoints(hand)
-
-    //fingerPuppet(indexFingerTipX, indexFingerTipY);
-
-    //chameleonHandPuppet(hand)
-
+    // chameleonHandPuppet(hand)
+    cloudHands(hands)
     /*
     Stop drawing on the hands here
     */
@@ -42,9 +58,62 @@ function drawInteraction(faces, hands) {
   //------------------------------------------------------
 }
 
+function cloudHands(hands) {
+  let hasFist = false;
+  let hasPinch = false;
+  // First loop: check gestures
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    let handgesture = detectHandGesture(hand);
+    if (handgesture == "Fist") {
+      hasFist = true;
+    }
+    if (handgesture == "Pinch") {
+      hasPinch = true;
+      // Save position for lightning
+      indexFingerTipX = hand.index_finger_tip.x;
+      indexFingerTipY = hand.index_finger_tip.y;
+    }
+  }
+// Second loop: Draw Clouds
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    let indexFingerTipX = hand.index_finger_tip.x;
+    let indexFingerTipY = hand.index_finger_tip.y;
+    ellipse(indexFingerTipX, indexFingerTipY, 80, 50)
+    ellipse(indexFingerTipX + 10, indexFingerTipY - 10, 80, 50)
+    ellipse(indexFingerTipX + 20, indexFingerTipY + 10, 80, 50)
+    noStroke()
+    let handgesture = detectHandGesture(hand)
+    if (handgesture == "Fist") {
+      noStroke()
+      fill(66, 66, 66)
+    } else {
+      noStroke()
+      fill(255, 255, 255)
+    }
+  }
+if (hasFist && hasPinch) {
+    drawLightning(indexFingerTipX, indexFingerTipY);
+  }
+}
 
-
-
+function drawLightning(x, y) {
+  stroke(255, 255, 0);
+  strokeWeight(6);
+  // Simple zig-zag lightning shape
+  let length = 100;
+  let segments = 5;
+  let lx = x, ly = y;
+  for (let i = 0; i < segments; i++) {
+    let nx = lx + random(-20, 20);
+    let ny = ly + length / segments;
+    line(lx, ly, nx, ny);
+    lx = nx;
+    ly = ny;
+  }
+  strokeWeight(0);
+}
 
 
 function fingerPuppet(x, y) {
