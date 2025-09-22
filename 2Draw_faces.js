@@ -64,18 +64,91 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
+
+function drawPointMesh(f) {
+  drawPoints(face.leftEye);
+  drawPoints(face.leftEyebrow);
+  drawPoints(face.lips);
+  drawPoints(face.rightEye);
+  drawPoints(face.rightEyebrow);
+}
+function LeftEyeSkull() {
+    stroke(255, 255, 255)
+    strokeWeight(10)
+    fill(255, 255, 255);
+    line(leftEyeCenterX -25, leftEyeCenterY -25, leftEyeCenterX +25, leftEyeCenterY +25);
+    line(leftEyeCenterX +25, leftEyeCenterY -25, leftEyeCenterX -25, leftEyeCenterY +25);
+    ellipse(leftEyeCenterX -23, leftEyeCenterY -27, 2, 2);
+    ellipse(leftEyeCenterX -27, leftEyeCenterY -23, 2, 2);
+    ellipse(leftEyeCenterX +23, leftEyeCenterY -27, 2, 2);
+    ellipse(leftEyeCenterX +27, leftEyeCenterY -23, 2, 2);
+    ellipse(leftEyeCenterX -23, leftEyeCenterY +27, 2, 2);
+    ellipse(leftEyeCenterX -27, leftEyeCenterY +23, 2, 2);
+    ellipse(leftEyeCenterX +23, leftEyeCenterY +27, 2, 2);
+    ellipse(leftEyeCenterX +27, leftEyeCenterY +23, 2, 2);
+
     noStroke()
-    fill(225, 225, 0);
-    // fill(get(leftEyeCenterX, leftEyeCenterY))
+    fill(255, 255, 255);
+    ellipse(leftEyeCenterX, leftEyeCenterY, 50, 50);
+    fill(0)
+    ellipse(leftEyeCenterX -11, leftEyeCenterY +4, 15, 15);
+    ellipse(leftEyeCenterX +11, leftEyeCenterY +4, 15, 15);
+    
+    strokeWeight(3)
+    stroke(0)
+    noFill()
+    line(leftEyeCenterX -3, leftEyeCenterY +16, leftEyeCenterX, leftEyeCenterY +13)
+    line(leftEyeCenterX +3, leftEyeCenterY +16, leftEyeCenterX, leftEyeCenterY +13)
 
-    ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+    stroke(255, 255, 255)
+    strokeWeight(6)
+    fill(225, 225, 255);
+    line(leftEyeCenterX -8, leftEyeCenterY +21, leftEyeCenterX -8, leftEyeCenterY +25)
+    line(leftEyeCenterX -2.8, leftEyeCenterY +21, leftEyeCenterX -2.8, leftEyeCenterY +25)
+    line(leftEyeCenterX +2.8, leftEyeCenterY +21, leftEyeCenterX +2.8, leftEyeCenterY +25)
+    line(leftEyeCenterX +7, leftEyeCenterY +21, leftEyeCenterX +7, leftEyeCenterY +25)
+}
+function RightEyeSkull() {
+    stroke(255, 255, 255)
+    strokeWeight(10)
+    fill(255, 255, 255);
+    line(rightEyeCenterX -25, rightEyeCenterY -25, rightEyeCenterX +25, rightEyeCenterY +25);
+    line(rightEyeCenterX +25, rightEyeCenterY -25, rightEyeCenterX -25, rightEyeCenterY +25);
+    ellipse(rightEyeCenterX -23, rightEyeCenterY -27, 2, 2);
+    ellipse(rightEyeCenterX -27, rightEyeCenterY -23, 2, 2);
+    ellipse(rightEyeCenterX +23, rightEyeCenterY -27, 2, 2);
+    ellipse(rightEyeCenterX +27, rightEyeCenterY -23, 2, 2);
+    ellipse(rightEyeCenterX -23, rightEyeCenterY +27, 2, 2);
+    ellipse(rightEyeCenterX -27, rightEyeCenterY +23, 2, 2);
+    ellipse(rightEyeCenterX +23, rightEyeCenterY +27, 2, 2);
+    ellipse(rightEyeCenterX +27, rightEyeCenterY +23, 2, 2);
 
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
+    noStroke()
+    fill(255, 255, 255);
+    ellipse(rightEyeCenterX, rightEyeCenterY, 50, 50);
+    fill(0)
+    ellipse(rightEyeCenterX -11, rightEyeCenterY +4, 15, 15);
+    ellipse(rightEyeCenterX +11, rightEyeCenterY +4, 15, 15);
+    
+    strokeWeight(3)
+    stroke(0)
+    noFill()
+    line(rightEyeCenterX -3, rightEyeCenterY +16, rightEyeCenterX, rightEyeCenterY +13)
+    line(rightEyeCenterX +3, rightEyeCenterY +16, rightEyeCenterX, rightEyeCenterY +13)
 
+    stroke(255, 255, 255)
+    strokeWeight(6)
+    fill(225, 225, 255);
+    line(rightEyeCenterX -8, rightEyeCenterY +21, rightEyeCenterX -8, rightEyeCenterY +25)
+    line(rightEyeCenterX -2.8, rightEyeCenterY +21, rightEyeCenterX -2.8, rightEyeCenterY +25)
+    line(rightEyeCenterX +2.8, rightEyeCenterY +21, rightEyeCenterX +2.8, rightEyeCenterY +25)
+    line(rightEyeCenterX +7, rightEyeCenterY +21, rightEyeCenterX +7, rightEyeCenterY +25)
+}
+
+  // drawPointMesh();
+
+  LeftEyeSkull();
+  RightEyeSkull();
     // drawX(rightEyeCenterX,rightEyeCenterY);
     // drawX(leftEyeCenterX,leftEyeCenterY);
 
