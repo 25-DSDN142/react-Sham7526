@@ -65,7 +65,7 @@ function drawInteraction(faces, hands) {
     Start drawing on the face here
     */
 
-function drawPointMesh(f) {
+function DrawPointMesh() {
   drawPoints(face.leftEye);
   drawPoints(face.leftEyebrow);
   drawPoints(face.lips);
@@ -145,8 +145,7 @@ function RightEyeSkull() {
     line(rightEyeCenterX +7, rightEyeCenterY +21, rightEyeCenterX +7, rightEyeCenterY +25)
 }
 
-  // drawPointMesh();
-
+  // DrawPointMesh();
   LeftEyeSkull();
   RightEyeSkull();
     // drawX(rightEyeCenterX,rightEyeCenterY);

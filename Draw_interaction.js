@@ -19,17 +19,89 @@ function drawInteraction(faces, hands) {
     // console.log(hand);
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
+
+    let pinkyFingerTipX = hand.pinky_finger_tip.x;
+    let pinkyFingerTipY = hand.pinky_finger_tip.y;
+
+    let thumbTipX = hand.thumb_tip.x;
+    let thumbTipY = hand.thumb_tip.y;
+
+    let ringFingerTipX = hand.ring_finger_tip.x;
+    let ringFingerTipY = hand.ring_finger_tip.y;
+
+    let middleFingerTipX = hand.middle_finger_tip.x;
+    let middleFingerTipY = hand.middle_finger_tip.y;
+
+    // Wrist info
+    let wristX = hand.wrist.x;
+    let wristY = hand.wrist.y;
+    let wristZ = hand.wrist.z3D;
     /*
     Start drawing on the hands here
     */
 
-    // pinchCircle(hand)
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+function cloudHands(hands) {
+  let hasFist = false;
+  let hasPinch = false;
+  // First loop: check gestures
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    let handgesture = detectHandGesture(hand);
+    if (handgesture == "Fist") {
+      hasFist = true;
+    }
+    if (handgesture == "Pinch") {
+      hasPinch = true;
+      // Save position for lightning
+      indexFingerTipX = hand.index_finger_tip.x;
+      indexFingerTipY = hand.index_finger_tip.y;
+    }
+  }
+// Second loop: Draw Clouds
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    let indexFingerTipX = hand.index_finger_tip.x;
+    let indexFingerTipY = hand.index_finger_tip.y;
+    noStroke()
+    ellipse(indexFingerTipX, indexFingerTipY, 80, 50)
+    ellipse(indexFingerTipX + 10, indexFingerTipY - 10, 80, 50)
+    ellipse(indexFingerTipX + 20, indexFingerTipY + 10, 80, 50)
 
+    let handgesture = detectHandGesture(hand)
+    if (handgesture == "Fist") {
+      noStroke()
+      fill(66, 66, 66)
+    } else {
+      noStroke()
+      fill(255, 255, 255)
+    }
+  }
+if (hasFist && hasPinch) {
+    drawLightning(indexFingerTipX, indexFingerTipY);
+  }
+}
+
+function drawLightning(x, y) {
+  stroke(255, 255, 0);
+  strokeWeight(6);
+  // Simple zig-zag lightning shape
+  let length = 100;
+  let segments = 5;
+  let lx = x, ly = y;
+  for (let i = 0; i < segments; i++) {
+    let nx = lx + random(-20, 20);
+    let ny = ly + length / segments;
+    line(lx, ly, nx, ny);
+    lx = nx;
+    ly = ny;
+  }
+  strokeWeight(0);
+}
     /*
     Stop drawing on the hands here
     */
+    cloudHands(hands);
+
   }
 
 
@@ -53,23 +125,130 @@ function drawInteraction(faces, hands) {
      face.rightEye
      face.rightEyebrow
     */
+    let faceCenterX = face.faceOval.centerX;
+    let faceCenterY = face.faceOval.centerY;
+    let faceWidth = face.faceOval.width;
+    let faceheight = face.faceOval.height;
+    // Left eye
+    let leftEyeCenterX = face.leftEye.centerX;
+    let leftEyeCenterY = face.leftEye.centerY;
+    let leftEyeWidth = face.leftEye.width;
+    let leftEyeHeight = face.leftEye.height;
+    // Left eyebrow
+    let leftEyebrowCenterX = face.leftEyebrow.centerX;
+    let leftEyebrowCenterY = face.leftEyebrow.centerY;
+    let leftEyebrowWidth = face.leftEyebrow.width;
+    let leftEyebrowHeight = face.leftEyebrow.height;
+
+    // Lips
+    let lipsCenterX = face.lips.centerX;
+    let lipsCenterY = face.lips.centerY;
+    let lipsWidth = face.lips.width;
+    let lipsHeight = face.lips.height;
+
+    // Right eye
+    let rightEyeCenterX = face.rightEye.centerX;
+    let rightEyeCenterY = face.rightEye.centerY;
+    let rightEyeWidth = face.rightEye.width;
+    let rightEyeHeight = face.rightEye.height;
+
+    // Right eyebrow
+    let rightEyebrowCenterX = face.rightEyebrow.centerX;
+    let rightEyebrowCenterY = face.rightEyebrow.centerY;
+    let rightEyebrowWidth = face.rightEyebrow.width;
+    let rightEyebrowHeight = face.rightEyebrow.height;
+
+    let noseTipX = face.keypoints[4].x;
+    let noseTipY = face.keypoints[4].y;
 
     /*
     Start drawing on the face here
     */
+function LeftEyeSkull() {
+    stroke(255, 255, 255)
+    strokeWeight(10)
+    fill(255, 255, 255);
+    line(leftEyeCenterX -25, leftEyeCenterY -25, leftEyeCenterX +25, leftEyeCenterY +25);
+    line(leftEyeCenterX +25, leftEyeCenterY -25, leftEyeCenterX -25, leftEyeCenterY +25);
+    ellipse(leftEyeCenterX -23, leftEyeCenterY -27, 2, 2);
+    ellipse(leftEyeCenterX -27, leftEyeCenterY -23, 2, 2);
+    ellipse(leftEyeCenterX +23, leftEyeCenterY -27, 2, 2);
+    ellipse(leftEyeCenterX +27, leftEyeCenterY -23, 2, 2);
+    ellipse(leftEyeCenterX -23, leftEyeCenterY +27, 2, 2);
+    ellipse(leftEyeCenterX -27, leftEyeCenterY +23, 2, 2);
+    ellipse(leftEyeCenterX +23, leftEyeCenterY +27, 2, 2);
+    ellipse(leftEyeCenterX +27, leftEyeCenterY +23, 2, 2);
 
-    // fill(225, 225, 0);
-    // ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+    noStroke()
+    fill(255, 255, 255);
+    ellipse(leftEyeCenterX, leftEyeCenterY, 50, 50);
+    fill(0)
+    ellipse(leftEyeCenterX -11, leftEyeCenterY +4, 15, 15);
+    ellipse(leftEyeCenterX +11, leftEyeCenterY +4, 15, 15);
+    
+    strokeWeight(3)
+    stroke(0)
+    noFill()
+    line(leftEyeCenterX -3, leftEyeCenterY +16, leftEyeCenterX, leftEyeCenterY +13)
+    line(leftEyeCenterX +3, leftEyeCenterY +16, leftEyeCenterX, leftEyeCenterY +13)
 
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
+    stroke(255, 255, 255)
+    strokeWeight(6)
+    fill(225, 225, 255);
+    line(leftEyeCenterX -8, leftEyeCenterY +21, leftEyeCenterX -8, leftEyeCenterY +25)
+    line(leftEyeCenterX -2.8, leftEyeCenterY +21, leftEyeCenterX -2.8, leftEyeCenterY +25)
+    line(leftEyeCenterX +2.8, leftEyeCenterY +21, leftEyeCenterX +2.8, leftEyeCenterY +25)
+    line(leftEyeCenterX +7, leftEyeCenterY +21, leftEyeCenterX +7, leftEyeCenterY +25)
+}
+function RightEyeSkull() {
+    stroke(255, 255, 255)
+    strokeWeight(10)
+    fill(255, 255, 255);
+    line(rightEyeCenterX -25, rightEyeCenterY -25, rightEyeCenterX +25, rightEyeCenterY +25);
+    line(rightEyeCenterX +25, rightEyeCenterY -25, rightEyeCenterX -25, rightEyeCenterY +25);
+    ellipse(rightEyeCenterX -23, rightEyeCenterY -27, 2, 2);
+    ellipse(rightEyeCenterX -27, rightEyeCenterY -23, 2, 2);
+    ellipse(rightEyeCenterX +23, rightEyeCenterY -27, 2, 2);
+    ellipse(rightEyeCenterX +27, rightEyeCenterY -23, 2, 2);
+    ellipse(rightEyeCenterX -23, rightEyeCenterY +27, 2, 2);
+    ellipse(rightEyeCenterX -27, rightEyeCenterY +23, 2, 2);
+    ellipse(rightEyeCenterX +23, rightEyeCenterY +27, 2, 2);
+    ellipse(rightEyeCenterX +27, rightEyeCenterY +23, 2, 2);
+
+    noStroke()
+    fill(255, 255, 255);
+    ellipse(rightEyeCenterX, rightEyeCenterY, 50, 50);
+    fill(0)
+    ellipse(rightEyeCenterX -11, rightEyeCenterY +4, 15, 15);
+    ellipse(rightEyeCenterX +11, rightEyeCenterY +4, 15, 15);
+    
+    strokeWeight(3)
+    stroke(0)
+    noFill()
+    line(rightEyeCenterX -3, rightEyeCenterY +16, rightEyeCenterX, rightEyeCenterY +13)
+    line(rightEyeCenterX +3, rightEyeCenterY +16, rightEyeCenterX, rightEyeCenterY +13)
+
+    stroke(255, 255, 255)
+    strokeWeight(6)
+    fill(225, 225, 255);
+    line(rightEyeCenterX -8, rightEyeCenterY +21, rightEyeCenterX -8, rightEyeCenterY +25)
+    line(rightEyeCenterX -2.8, rightEyeCenterY +21, rightEyeCenterX -2.8, rightEyeCenterY +25)
+    line(rightEyeCenterX +2.8, rightEyeCenterY +21, rightEyeCenterX +2.8, rightEyeCenterY +25)
+    line(rightEyeCenterX +7, rightEyeCenterY +21, rightEyeCenterX +7, rightEyeCenterY +25)
+}
+function DrawPointMesh() {
+  drawPoints(face.leftEye);
+  drawPoints(face.leftEyebrow);
+  drawPoints(face.lips);
+  drawPoints(face.rightEye);
+  drawPoints(face.rightEyebrow);
+}
     /*
     Stop drawing on the face here
     */
-
+LeftEyeSkull();
+RightEyeSkull();
+//DrawPointMesh();
   }
   //------------------------------------------------------
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
