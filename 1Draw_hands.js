@@ -49,7 +49,7 @@ function drawInteraction(faces, hands) {
     // fingerPuppet(indexFingerTipX, indexFingerTipY);
 
     // chameleonHandPuppet(hand)
-    cloudHands(hands)
+    //cloudHands(hands)
     /*
     Stop drawing on the hands here
     */
@@ -125,7 +125,6 @@ function fingerPuppet(x, y) {
   ellipse(x, y, 20) // draw center 
 
 }
-
 
 function pinchCircle(hand) { // adapted from https://editor.p5js.org/ml5/sketches/DNbSiIYKB
   // Find the index finger tip and thumb tip

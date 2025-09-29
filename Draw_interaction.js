@@ -97,11 +97,37 @@ function drawLightning(x, y) {
   }
   strokeWeight(0);
 }
+
+function FlintknockGun(hand) {
+     stroke(110, 73, 34);
+    fill(110, 73, 34);
+    beginShape();
+    vertex(indexFingerTipX + 150, indexFingerTipY - 9);
+    vertex(indexFingerTipX - 50, indexFingerTipY - 9);
+    vertex(indexFingerTipX)
+    endShape(CLOSE);
+    stroke(232, 185, 56);
+    strokeWeight(5);
+    noFill();
+    arc(indexFingerTipX, indexFingerTipY, 100, 80, 0, PI);
+    arc(indexFingerTipX, indexFingerTipY + 110, 300, 240, PI, -2);
+    fill(232, 185, 56);
+    ellipse(indexFingerTipX - 197, indexFingerTipY + 160, 130, 90);
+    stroke(110, 73, 34);
+    noFill();
+    arc(indexFingerTipX - 105, indexFingerTipY + 110, 300, 340, PI, -2);
+    stroke(232, 185, 56);
+    noFill();
+    arc(indexFingerTipX - 95, indexFingerTipY + 110, 110, 100, 2.5, PI);
+    arc(indexFingerTipX - 205, indexFingerTipY + 146, 110, 200, PI, -2.5);
+  
+  }
+
     /*
     Stop drawing on the hands here
     */
-    cloudHands(hands);
-
+    //cloudHands(hands);
+    //FlintknockGun(hand);
   }
 
 
@@ -236,6 +262,39 @@ function RightEyeSkull() {
     line(rightEyeCenterX +2.8, rightEyeCenterY +21, rightEyeCenterX +2.8, rightEyeCenterY +25)
     line(rightEyeCenterX +7, rightEyeCenterY +21, rightEyeCenterX +7, rightEyeCenterY +25)
 }
+function PirateHat() {
+push()
+  fill(0);
+stroke(0);
+strokeWeight(5);
+  beginShape();
+curveVertex(face.keypoints[54].x, face.keypoints[54].y);
+curveVertex(face.keypoints[54].x, face.keypoints[54].y);
+  curveVertex(face.keypoints[103].x, face.keypoints[103].y);
+  curveVertex(face.keypoints[67].x, face.keypoints[67].y);
+  curveVertex(face.keypoints[109].x, face.keypoints[109].y);
+curveVertex(face.keypoints[10].x, face.keypoints[10].y);
+  curveVertex(face.keypoints[338].x, face.keypoints[338].y);
+  curveVertex(face.keypoints[297].x, face.keypoints[297].y);
+  curveVertex(face.keypoints[332].x, face.keypoints[332].y);
+curveVertex(face.keypoints[284].x, face.keypoints[284].y);
+curveVertex(face.keypoints[284].x, face.keypoints[284].y);
+curveVertex(face.keypoints[284].x + 30, face.keypoints[284].y + 20);
+curveVertex(face.keypoints[284].x + 50, face.keypoints[284].y);
+curveVertex(face.keypoints[284].x + 60, face.keypoints[284].y - 20);
+  curveVertex(face.keypoints[332].x, face.keypoints[332].y -70);
+  curveVertex(face.keypoints[297].x, face.keypoints[297].y - 100);
+curveVertex(face.keypoints[338].x, face.keypoints[338].y - 120);
+curveVertex(face.keypoints[10].x, face.keypoints[10].y - 130);
+curveVertex(face.keypoints[109].x, face.keypoints[109].y - 120);
+  curveVertex(face.keypoints[67].x, face.keypoints[67].y - 100);
+  curveVertex(face.keypoints[103].x, face.keypoints[103].y - 70);
+curveVertex(face.keypoints[54].x - 60, face.keypoints[54].y - 20);
+curveVertex(face.keypoints[54].x - 50, face.keypoints[54].y);
+curveVertex(face.keypoints[54].x - 30, face.keypoints[54].y + 20);
+  endShape(CLOSE);
+  pop()
+}
 function DrawPointMesh() {
   drawPoints(face.leftEye);
   drawPoints(face.leftEyebrow);
@@ -246,8 +305,9 @@ function DrawPointMesh() {
     /*
     Stop drawing on the face here
     */
-LeftEyeSkull();
-RightEyeSkull();
+  PirateHat();
+  LeftEyeSkull();
+  RightEyeSkull();
 //DrawPointMesh();
   }
   //------------------------------------------------------
