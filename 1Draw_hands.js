@@ -1,4 +1,7 @@
 // ----=  HANDS  =----
+let balls = [];
+let ballSpeed = 8;
+let prevThumbsUp = [];
 /* load images here */
 function prepareInteraction() {
   //bgImage = loadImage('/images/background.png');
@@ -47,7 +50,7 @@ function drawInteraction(faces, hands) {
     // ellipse(middleFingerTipX, middleFingerTipY, 30, 30);
     
     // fingerPuppet(indexFingerTipX, indexFingerTipY);
-
+    Flintlock_Pistol(hand);
     // chameleonHandPuppet(hand)
     //cloudHands(hands)
     /*
@@ -56,6 +59,230 @@ function drawInteraction(faces, hands) {
   }
   // You can make addtional elements here, but keep the hand drawing inside the for loop. 
   //------------------------------------------------------
+
+}
+  //Main Function that calls all the other functions
+function Flintlock_Pistol(hand) {
+  let gun_x = hand.index_finger_tip.x - 200;
+  let gun_y = hand.index_finger_tip.y;
+
+  let Light_Grey = color(173, 184, 194);
+  let Black = color(0, 0, 0);
+  let Grey = color(133, 148, 163);
+  let Brown = color(137, 81, 41);
+  
+ while (prevThumbsUp.length < hands.length) prevThumbsUp.push(false);
+
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    let indexFingerTipX = hand.index_finger_tip.x;
+    let indexFingerTipY = hand.index_finger_tip.y;
+
+    let handgesture = detectHandGesture(hand);
+
+ if (handgesture == "Thumbs Up" && !prevThumbsUp[i]) {
+      let gun_x = indexFingerTipX;
+      let gun_y = indexFingerTipY;
+      balls.push({
+        x: gun_x + 50,
+        y: gun_y + 10
+      });
+    }
+    prevThumbsUp[i] = (handgesture == "Thumbs Up");
+ for (let i = balls.length - 1; i >= 0; i--) {
+    fill(0);
+    noStroke();
+    ellipse(balls[i].x, balls[i].y, 10, 10);
+    balls[i].x += ballSpeed;
+    if (balls[i].x > width) {
+      balls.splice(i, 1);
+    }
+  }
+}
+// Draw the gun parts
+// Trigger
+  fill(Grey);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 25, gun_y + 25);
+  curveVertex(gun_x + 23, gun_y + 29);
+  curveVertex(gun_x + 25, gun_y + 39);
+  curveVertex(gun_x + 21, gun_y + 33);
+  curveVertex(gun_x + 20, gun_y + 28);
+  vertex(gun_x + 23, gun_y + 25);
+  endShape(CLOSE);
+// Trigger Guard
+  fill(Light_Grey);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 28, gun_y + 26);
+  bezierVertex(gun_x + 50, gun_y + 49, gun_x - 3, gun_y + 47, gun_x + 15, gun_y + 28);
+  vertex(gun_x + 15, gun_y + 27);
+  vertex(gun_x - 2, gun_y + 34);
+  vertex(gun_x - 8, gun_y + 39);
+  bezierVertex(gun_x + 15, gun_y + 30, gun_x, gun_y + 40, gun_x + 15, gun_y + 45);
+  bezierVertex(gun_x + 50, gun_y + 52, gun_x + 35, gun_y + 25, gun_x + 39, gun_y + 35);
+  bezierVertex(gun_x + 35, gun_y + 25, gun_x + 40, gun_y + 30, gun_x + 45, gun_y + 25);
+  vertex(gun_x + 30, gun_y + 20);
+  endShape(CLOSE);
+// Stock
+beginShape();
+  fill(Light_Grey);
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x - 19, gun_y + 57);
+  bezierVertex(gun_x - 20, gun_y + 95, gun_x - 70, gun_y + 75, gun_x - 48, gun_y + 52, gun_x, gun_y)
+  vertex(gun_x - 45, gun_y + 50);
+  endShape(CLOSE);
+
+  fill(Brown);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 70, gun_y);
+  vertex(gun_x + 70, gun_y + 7);
+  vertex(gun_x + 73, gun_y + 10);
+  vertex(gun_x + 150, gun_y + 10);
+  vertex(gun_x + 150, gun_y + 20);
+  bezierVertex(gun_x + 100, gun_y + 25, gun_x + 100, gun_y + 25, gun_x + 80, gun_y + 25, gun_x, gun_y);
+  bezierVertex(gun_x + 30, gun_y + 25, gun_x + 20, gun_y + 25, gun_x, gun_y + 35, gun_x, gun_y);
+  bezierVertex(gun_x - 10, gun_y + 40, gun_x - 15, gun_y + 50, gun_x - 20, gun_y + 60, gun_x, gun_y);
+  bezierVertex(gun_x - 20, gun_y + 75, gun_x - 55, gun_y + 70, gun_x - 50, gun_y + 55, gun_x, gun_y);
+  bezierVertex(gun_x - 35, gun_y + 15, gun_x, gun_y - 10, gun_x + 70, gun_y, gun_x, gun_y);
+  endShape(CLOSE);
+
+// Frizzen
+beginShape();
+  fill(Light_Grey);
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 30, gun_y + 5);
+  bezierVertex(gun_x + 45, gun_y, gun_x + 55, gun_y, gun_x + 60, gun_y + 5);
+  bezierVertex(gun_x + 60, gun_y + 6, gun_x + 60, gun_y + 10, gun_x + 62, gun_y + 10);
+  bezierVertex(gun_x + 123, gun_y + 20, gun_x + 40, gun_y + 21, gun_x + 50, gun_y + 21);
+  bezierVertex(gun_x + 23, gun_y + 23, gun_x + 23, gun_y + 23, gun_x + 10, gun_y + 23);
+  bezierVertex(gun_x - 5, gun_y + 23, gun_x + 0, gun_y + 15, gun_x + 29, gun_y + 5);
+  vertex(gun_x + 29, gun_y + 5);
+  endShape(CLOSE);
+  
+  beginShape();
+  fill(Grey);
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 57, gun_y + 6);
+  bezierVertex(gun_x + 59, gun_y + 8, gun_x + 57, gun_y + 12, gun_x + 60, gun_y + 13);
+  bezierVertex(gun_x + 110, gun_y + 17, gun_x + 40, gun_y + 18, gun_x + 47, gun_y + 18);
+  bezierVertex(gun_x + 20, gun_y + 20, gun_x + 20, gun_y + 20, gun_x + 7, gun_y + 20);
+  bezierVertex(gun_x + 3, gun_y + 20, gun_x + 3, gun_y + 18, gun_x + 31, gun_y + 8);
+  bezierVertex(gun_x + 42, gun_y + 3, gun_x + 52, gun_y + 3, gun_x + 57, gun_y + 6);
+  vertex(gun_x + 57, gun_y + 6);
+  endShape(CLOSE);
+// Cock
+  beginShape();
+  fill(Light_Grey);
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 49, gun_y + 11);
+  bezierVertex(gun_x + 50, gun_y + 10);
+  curveVertex(gun_x + 50, gun_y + 5);
+  curveVertex(gun_x + 37, gun_y - 4);
+  curveVertex(gun_x + 23, gun_y - 7);
+  curveVertex(gun_x + 18, gun_y - 13);
+  curveVertex(gun_x + 18, gun_y - 8);
+  curveVertex(gun_x + 23, gun_y - 4);
+  curveVertex(gun_x + 38, gun_y);
+  curveVertex(gun_x + 42, gun_y + 7);
+  curveVertex(gun_x + 33, gun_y + 9);
+  bezierVertex(gun_x + 36, gun_y + 12);
+  endShape(CLOSE);
+// Barrel
+fill(Grey);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 70, gun_y + 1);
+  vertex(gun_x + 190, gun_y + 1);
+  vertex(gun_x + 200, gun_y - 2);
+  bezierVertex(gun_x + 205, gun_y, gun_x + 205, gun_y + 10, gun_x + 200, gun_y + 14, gun_x + 200, gun_y + 1);
+  vertex(gun_x + 200, gun_y + 14);
+  vertex(gun_x + 190, gun_y + 11);
+  vertex(gun_x + 150, gun_y + 11);
+  vertex(gun_x + 150, gun_y + 10);
+  vertex(gun_x + 73, gun_y + 10);
+  endShape(CLOSE);
+
+  beginShape();
+  fill(Light_Grey)
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 70, gun_y);
+  vertex(gun_x + 73, gun_y);
+  vertex(gun_x + 73, gun_y + 7);
+  vertex(gun_x + 74, gun_y + 10);
+  vertex(gun_x + 71, gun_y + 10);
+  vertex(gun_x + 70, gun_y + 7);
+  endShape(CLOSE);
+
+  beginShape();
+  fill(Light_Grey)
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 88, gun_y);
+  vertex(gun_x + 91, gun_y);
+  vertex(gun_x + 91, gun_y + 10);
+  vertex(gun_x + 88, gun_y + 10);
+  endShape(CLOSE);
+
+  beginShape();
+  fill(Light_Grey)
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 115, gun_y);
+  vertex(gun_x + 118, gun_y);
+  vertex(gun_x + 118, gun_y + 10);
+  vertex(gun_x + 115, gun_y + 10);
+  endShape(CLOSE);
+
+  beginShape();
+  fill(Light_Grey)
+  stroke(Black);
+  strokeWeight(1);
+  vertex(gun_x + 187, gun_y);
+  vertex(gun_x + 190, gun_y);
+  vertex(gun_x + 190, gun_y + 12);
+  vertex(gun_x + 187, gun_y + 12);
+  endShape(CLOSE);
+
+// Ramrod
+fill(Grey);
+  stroke(Black);
+  strokeWeight(1);
+  rect(gun_x + 150, gun_y + 14, 15, 3);
+  
+  fill(Grey);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 165, gun_y + 13);
+  vertex(gun_x + 175, gun_y + 11);
+  bezierVertex(gun_x + 178, gun_y + 13, gun_x + 178, gun_y + 18, gun_x + 175, gun_y + 20);
+  vertex(gun_x + 175, gun_y + 20);
+  vertex(gun_x + 165, gun_y + 18);
+  endShape(CLOSE);
+
+
+  fill(Light_Grey);
+  stroke(Black);
+  strokeWeight(1);
+  beginShape();
+  vertex(gun_x + 150, gun_y + 10);
+  vertex(gun_x + 153, gun_y + 10);
+  vertex(gun_x + 153, gun_y + 17);
+  bezierVertex(gun_x + 153, gun_y + 20, gun_x + 150, gun_y + 20, gun_x + 147, gun_y + 20);
+  bezierVertex(gun_x + 150, gun_y + 20, gun_x + 150, gun_y + 17, gun_x + 150, gun_y + 17);
+  endShape(CLOSE);
 }
 
 function cloudHands(hands) {
@@ -198,5 +425,6 @@ function drawPoints(feature) {
     circle(element.x, element.y, 10);
   }
   pop()
-
 }
+
+
